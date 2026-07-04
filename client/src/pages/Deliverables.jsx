@@ -196,10 +196,11 @@ function Deliverables() {
                         </div>
                     ) : deliverables.length === 0 ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">
+                            <p className="text-sm font-medium text-gray-500">No deliverables found.</p>
+                            <p className="text-xs text-gray-400 mt-1">
                                 {isAdmin
-                                    ? "No deliverables uploaded yet."
-                                    : "No files have been shared with you yet."}
+                                    ? "Start by sharing a deliverable using the upload form above."
+                                    : "Shared files will appear here once uploaded by the agency."}
                             </p>
                         </div>
                     ) : (

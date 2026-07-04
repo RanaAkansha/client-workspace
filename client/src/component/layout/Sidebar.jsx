@@ -23,7 +23,7 @@ function Sidebar() {
 
             {/* Brand */}
             <div className="px-6 py-6 border-b border-gray-200">
-                <p className="text-base font-semibold tracking-tight text-gray-900">StudioSync</p>
+                <p className="text-base font-semibold tracking-tight text-gray-900">Client Workspace</p>
                 <p className="text-xs text-gray-400 mt-0.5">Client Portal</p>
             </div>
 

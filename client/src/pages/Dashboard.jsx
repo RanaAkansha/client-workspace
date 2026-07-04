@@ -83,12 +83,12 @@ function Dashboard() {
                 {/* Greeting */}
                 <div>
                     <h2 className="text-3xl font-semibold text-gray-900">
-                        Good morning, {firstName}
+                        Welcome back, {firstName}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
                         {isAdmin
-                            ? "Here's a summary of your agency's active work."
-                            : "Here's what your agency is working on for you."}
+                            ? "Workspace Overview — Apex Creative Agency"
+                            : "Workspace Overview — Apex Creative Agency"}
                     </p>
                 </div>
 
@@ -119,7 +119,8 @@ function Dashboard() {
 
                     {dashboard.recentProjects.length === 0 ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">No projects yet.</p>
+                            <p className="text-sm font-medium text-gray-500">No projects found.</p>
+                            <p className="text-xs text-gray-400 mt-1">Active projects will show up here once created.</p>
                         </div>
                     ) : (
                         <table className="w-full">
@@ -153,7 +154,8 @@ function Dashboard() {
 
                     {dashboard.recentDeliverables.length === 0 ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">No deliverables uploaded yet.</p>
+                            <p className="text-sm font-medium text-gray-500">No deliverables uploaded yet.</p>
+                            <p className="text-xs text-gray-400 mt-1">Shared files and links will be visible here.</p>
                         </div>
                     ) : (
                         <table className="w-full">
@@ -198,7 +200,8 @@ function Dashboard() {
 
                     {dashboard.recentComments.length === 0 ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">No comments yet.</p>
+                            <p className="text-sm font-medium text-gray-500">No comments logged yet.</p>
+                            <p className="text-xs text-gray-400 mt-1">Recent client-agency discussions will be shown here.</p>
                         </div>
                     ) : (
                         <div className="divide-y divide-gray-100">

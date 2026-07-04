@@ -51,7 +51,7 @@ function Register() {
             {/* Left panel */}
             <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gray-950 text-white p-14">
                 <div>
-                    <span className="text-xl font-semibold tracking-tight">StudioSync</span>
+                    <span className="text-xl font-semibold tracking-tight">Client Workspace</span>
                 </div>
 
                 <div>
@@ -79,7 +79,7 @@ function Register() {
 
                 <div className="w-full max-w-sm">
 
-                    <p className="lg:hidden text-xl font-semibold mb-8">StudioSync</p>
+                    <p className="lg:hidden text-xl font-semibold mb-8">Client Workspace</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mb-1">
                         Create an account
@@ -118,7 +118,7 @@ function Register() {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="you@studio.com"
+                                placeholder="you@agency.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required

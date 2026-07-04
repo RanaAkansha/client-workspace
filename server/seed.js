@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const pool = require("./src/config/db");
 
 async function seed() {
-    console.log("Starting database seeding (clean setup with rich demo data)...");
+    console.log("Starting database seeding (clean setup with rich workspace data)...");
 
     try {
         // Clear all existing data
@@ -14,13 +14,13 @@ async function seed() {
         const adminPasswordHash = await bcrypt.hash("admin123", saltRounds);
         const clientPasswordHash = await bcrypt.hash("client123", saltRounds);
 
-        // Insert Admin
+        // Insert Admin (Agency Owner / Lead Designer)
         console.log("Inserting admin user...");
         const adminRes = await pool.query(`
             INSERT INTO users (name, email, password, role)
             VALUES ($1, $2, $3, $4)
             RETURNING id
-        `, ["Demo Admin", "admin@demoagency.com", adminPasswordHash, "admin"]);
+        `, ["Akansha Rana", "akansha@agency.com", adminPasswordHash, "admin"]);
         const adminId = adminRes.rows[0].id;
 
         // Insert Clients
@@ -29,14 +29,14 @@ async function seed() {
             INSERT INTO users (name, email, password, role)
             VALUES ($1, $2, $3, $4)
             RETURNING id
-        `, ["Sample Brand Client", "client@samplebrand.com", clientPasswordHash, "client"]);
+        `, ["Sarah Jenkins (Nova Smart Home)", "sarah@novasmarthome.com", clientPasswordHash, "client"]);
         const client1Id = client1Res.rows[0].id;
 
         const client2Res = await pool.query(`
             INSERT INTO users (name, email, password, role)
             VALUES ($1, $2, $3, $4)
             RETURNING id
-        `, ["Coastal Lodge Client", "client@coastallodge.com", clientPasswordHash, "client"]);
+        `, ["Marcus Vance (Aero Capital)", "marcus@aerocapital.com", clientPasswordHash, "client"]);
         const client2Id = client2Res.rows[0].id;
 
         // Insert Projects
@@ -48,8 +48,8 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '10 days', NOW() - INTERVAL '10 days')
             RETURNING id
         `, [
-            "Sample Brand E-Commerce Redesign", 
-            "Redesign and modernise the Sample Brand online store. Build custom checkout sections, optimise product page flow, and integrate inventory widget.", 
+            "Corporate Website Redesign", 
+            "Redesign and modernize the Nova Smart Home e-commerce store. Build custom interactive product grids, optimize page flow, and integrate their smart device inventory API.", 
             "Active", 
             client1Id, 
             adminId
@@ -62,8 +62,8 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '8 days', NOW() - INTERVAL '5 days')
             RETURNING id
         `, [
-            "Sample Brand SEO Optimization", 
-            "Perform comprehensive keyword research and on-page SEO optimization for the Sample Brand blog network to increase organic reach.", 
+            "Brand Identity System", 
+            "Formulate a comprehensive visual brand guide, typography selection, custom color palettes, and social media templates for the new product launch.", 
             "Completed", 
             client1Id, 
             adminId
@@ -76,8 +76,8 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '4 days', NOW() - INTERVAL '1 day')
             RETURNING id
         `, [
-            "Coastal Lodge Booking Flow", 
-            "Design and implement a responsive lodging reservation widget with visual calendar selection and credit card authorization features.", 
+            "Client Portal Development", 
+            "Design and implement a responsive client portal workspace with secure authentication, calendar widgets, and document collaboration features.", 
             "In Review", 
             client2Id, 
             adminId
@@ -90,8 +90,8 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '2 days', NOW() - INTERVAL '2 days')
             RETURNING id
         `, [
-            "Wellness App Brand Strategy", 
-            "Formulate visual brand guide, custom typography, color palettes, and social media templates for the wellness mobile application launch.", 
+            "SEO Strategy & Audit", 
+            "Perform comprehensive competitor keyword analysis and technical on-page SEO optimization for their financial blog network to increase organic search volume.", 
             "Planning", 
             client2Id, 
             adminId
@@ -107,9 +107,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '10 days')
         `, [
             p1Id, 
-            "E-Commerce Wireframe Layouts", 
-            "Initial wireframes for the homepage, product details, and checkout funnel.", 
-            "https://docs.google.com/document/d/1a2b3c4d5e6f7g8h9i0j/edit?usp=drive_link", 
+            "Homepage Mockup.fig", 
+            "High-fidelity Figma mockup for the desktop homepage layout, showcasing the new hero section and interactive product grid.", 
+            "https://figma.com/file/homepage-mockup-nova", 
             adminId
         ]);
 
@@ -119,9 +119,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '7 days')
         `, [
             p1Id, 
-            "Inventory Integration Documentation", 
-            "Technical specification and API keys schema for the warehouse inventory connection.", 
-            "https://docs.google.com/document/d/2b3c4d5e6f7g8h9i0j1k/edit?usp=drive_link", 
+            "Launch Checklist.pdf", 
+            "Comprehensive checklist covering final SEO settings, form verifications, SSL setup, and redirects planning.", 
+            "https://docs.google.com/document/d/launch-checklist-nova", 
             adminId
         ]);
 
@@ -131,9 +131,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '5 days')
         `, [
             p2Id, 
-            "SEO Audit Report", 
-            "Detailed on-page SEO findings and target competitor keyword analysis sheets.", 
-            "https://docs.google.com/document/d/3c4d5e6f7g8h9i0j1k2l/edit?usp=drive_link", 
+            "Brand Guidelines.pdf", 
+            "Core typography instructions, color palettes, logo usage patterns, and visual asset templates.", 
+            "https://docs.google.com/document/d/brand-guidelines-nova", 
             adminId
         ]);
 
@@ -143,9 +143,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '3 days')
         `, [
             p3Id, 
-            "Booking Widget API Keys", 
-            "Embedded script codes and sandbox environment credentials for the reservation calendar.", 
-            "https://docs.google.com/document/d/4d5e6f7g8h9i0j1k2l3m/edit?usp=drive_link", 
+            "Wireframes.pdf", 
+            "UX wireframes detailing user dashboard views, navigation flows, and interactive page layouts.", 
+            "https://docs.google.com/document/d/wireframes-aero", 
             adminId
         ]);
 
@@ -155,9 +155,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW() - INTERVAL '1 day')
         `, [
             p3Id, 
-            "Mobile Checkout UI Designs", 
-            "Figma layout exports for mobile resolution booking confirmation screens.", 
-            "https://docs.google.com/document/d/5e6f7g8h9i0j1k2l3m4n/edit?usp=drive_link", 
+            "Design System.pdf", 
+            "Comprehensive pattern library, reusable layout modules, and interactive elements definition.", 
+            "https://docs.google.com/document/d/design-system-aero", 
             adminId
         ]);
 
@@ -167,9 +167,9 @@ async function seed() {
             VALUES ($1, $2, $3, $4, $5, NOW())
         `, [
             p4Id, 
-            "Brand Color Palette Guidelines", 
-            "Fictional style guidelines outlining core logo usage, typography hierarchy, and web-safe color codes.", 
-            "https://docs.google.com/document/d/6f7g8h9i0j1k2l3m4n5o/edit?usp=drive_link", 
+            "SEO Audit Report.pdf", 
+            "Detailed keyword gap analysis, competitor audit findings, and target schema recommendations.", 
+            "https://docs.google.com/document/d/seo-audit-aero", 
             adminId
         ]);
 
@@ -183,7 +183,7 @@ async function seed() {
         `, [
             p1Id, 
             client1Id, 
-            "Hi Team, the Shopify store homepage layout looks stunning! Could we verify if the checkout button has a clear hover state?"
+            "Hi Akansha, the Shopify store homepage layout looks stunning! Could we verify if the primary call-to-action has a hover state in the mockup?"
         ]);
 
         await pool.query(`
@@ -192,7 +192,7 @@ async function seed() {
         `, [
             p1Id, 
             adminId, 
-            "Hi there! Yes, we have added a subtle animation and hover state to the primary buttons. You can preview it in the E-Commerce Wireframe Layouts document above."
+            "Hi Sarah! Yes, we have added smooth hover transitions and custom color changes to all main buttons. You can preview them in the Homepage Mockup Figma link above."
         ]);
 
         // Project 2 Comments
@@ -202,7 +202,7 @@ async function seed() {
         `, [
             p2Id, 
             client1Id, 
-            "Thanks for sending over the SEO audit report. The recommendation on image optimization is very helpful."
+            "Thanks for sending over the brand identity guidelines. The typographic hierarchy and custom color palette are exactly what we envisioned."
         ]);
 
         await pool.query(`
@@ -211,7 +211,7 @@ async function seed() {
         `, [
             p2Id, 
             adminId, 
-            "Excellent! We've already compressed all homepage assets, saving about 1.5MB in initial page load weight."
+            "Perfect! We've already exported the asset package with all logo variants and CSS color tokens for the development phase."
         ]);
 
         // Project 3 Comments
@@ -221,7 +221,7 @@ async function seed() {
         `, [
             p3Id, 
             client2Id, 
-            "Hi Admin, could we review the latest checkout flow layouts? The custom reservation section looks great so far."
+            "Hi Akansha, could we review the latest dashboard portal layouts? The client onboarding flow looks extremely clean."
         ]);
 
         await pool.query(`
@@ -230,7 +230,7 @@ async function seed() {
         `, [
             p3Id, 
             adminId, 
-            "Hi there! Yes, let's schedule a call tomorrow morning to go over it. I'll make sure the deliverables link is updated."
+            "Hi Marcus! Yes, let's schedule a brief sync tomorrow at 10 AM to walk through the dashboard layouts and finalize the checkout screens."
         ]);
 
         await pool.query(`
@@ -239,7 +239,7 @@ async function seed() {
         `, [
             p3Id, 
             client2Id, 
-            "Sounds perfect. Let's do 10 AM. I will invite our operations head to the call as well."
+            "Sounds perfect. I'll add our product manager to the invite list. See you then!"
         ]);
 
         // Project 4 Comments
@@ -249,10 +249,10 @@ async function seed() {
         `, [
             p4Id, 
             adminId, 
-            "Hello! I have uploaded the draft Brand Guide containing the color palette guidelines. Let me know what you think."
+            "Hi Marcus! I have uploaded the draft SEO Audit Report. It contains the key search queries and competitor analysis. Let me know what you think."
         ]);
 
-        console.log("Database seeded successfully with rich, clean mock accounts and active workspace data!");
+        console.log("Database seeded successfully with realistic business profiles and active workspace data!");
     } catch (error) {
         console.error("Seeding failed:", error);
     } finally {

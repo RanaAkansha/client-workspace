@@ -11,14 +11,14 @@ function Login() {
     const [formData, setFormData] = useState({ email: "", password: "" });
     const fillAdmin = () => {
         setFormData({
-            email: "admin@demoagency.com",
+            email: "akansha@agency.com",
             password: "admin123",
         });
     };
 
     const fillClient = () => {
         setFormData({
-            email: "client@samplebrand.com",
+            email: "sarah@novasmarthome.com",
             password: "client123",
         });
     };
@@ -53,7 +53,7 @@ function Login() {
 
                 {/* Brand */}
                 <div>
-                    <span className="text-xl font-semibold tracking-tight">StudioSync</span>
+                    <span className="text-xl font-semibold tracking-tight">Client Workspace</span>
                 </div>
 
                 {/* Value prop */}
@@ -85,7 +85,7 @@ function Login() {
                 <div className="w-full max-w-sm">
 
                     {/* Mobile brand (hidden on desktop) */}
-                    <p className="lg:hidden text-xl font-semibold mb-8">StudioSync</p>
+                    <p className="lg:hidden text-xl font-semibold mb-8">Client Workspace</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mb-1">
                         Welcome back
@@ -110,7 +110,7 @@ function Login() {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="you@studio.com"
+                                placeholder="you@agency.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
@@ -144,7 +144,7 @@ function Login() {
                         <div className="mt-8 border border-gray-200 rounded-lg p-4 bg-gray-50">
 
                             <h3 className="text-sm font-semibold text-gray-900 mb-4">
-                                Demo Accounts
+                                Workspace Accounts
                             </h3>
 
                             <div className="space-y-4">
@@ -153,7 +153,7 @@ function Login() {
                                     <div>
                                         <p className="text-sm font-medium">Agency Admin</p>
                                         <p className="text-xs text-gray-500">
-                                            admin@demoagency.com
+                                            akansha@agency.com
                                         </p>
                                     </div>
 
@@ -168,9 +168,9 @@ function Login() {
 
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-sm font-medium">Client</p>
+                                        <p className="text-sm font-medium">Client Partner</p>
                                         <p className="text-xs text-gray-500">
-                                            client@samplebrand.com
+                                            sarah@novasmarthome.com
                                         </p>
                                     </div>
 

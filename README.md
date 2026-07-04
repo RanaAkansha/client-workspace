@@ -1,4 +1,4 @@
-# StudioSync
+# Client Workspace
 
 A modern, light, role-aware client collaboration portal inspired by the workflow needs of small digital agencies. Replace scattered email chains, Google Drive links, and WhatsApp threads with a single unified dashboard for managing projects, client assets, and interactive feedback.
 
@@ -32,7 +32,7 @@ cd server
 npm install
 npm run seed
 ```
-> The seeder automatically drops old tables, runs migrations (if needed), and populates fictional demo data (projects, deliverables, comments) to showcase the agency workflow.
+> The seeder automatically drops old tables, runs migrations (if needed), and populates realistic agency workspace data (projects, deliverables, comments) to showcase the agency workflow.
 
 ### 2. Run Backend Dev Server
 ```bash
@@ -50,9 +50,9 @@ Vite will start the client interface on `http://localhost:5173`.
 
 ---
 
-## 🔐 Seeded Test Credentials
+## 🔐 Seeded Workspace Credentials
 
-Run `npm run seed` to generate demo Admin and Client accounts — check `server/seed.js` for credentials.
+Run `npm run seed` to generate default Admin and Client accounts — check `server/seed.js` for credentials.
 
 ---
 

@@ -168,6 +168,7 @@ function Projects() {
                                     >
                                         <option value="Planning">Planning</option>
                                         <option value="Active">Active</option>
+                                        <option value="In Review">In Review</option>
                                         <option value="Completed">Completed</option>
                                     </select>
                                 </div>
@@ -200,7 +201,12 @@ function Projects() {
                         </div>
                     ) : projects.length === 0 ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">No projects yet.</p>
+                            <p className="text-sm font-medium text-gray-500">No active projects found.</p>
+                            <p className="text-xs text-gray-400 mt-1">
+                                {isAdmin 
+                                    ? "Get started by adding a new project using the form above." 
+                                    : "Please contact Apex Creative Agency to assign a project to your account."}
+                            </p>
                         </div>
                     ) : (
                         <table className="w-full">

@@ -23,7 +23,7 @@ app.use(
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ message: "StudioSync API is running" });
+  res.json({ message: "Client Workspace API is running" });
 });
 
 app.use("/api/auth", authRoutes);

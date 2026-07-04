@@ -19,7 +19,7 @@ function Navbar() {
         <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
 
             <p className="text-base font-semibold text-gray-900">
-                {pageTitles[location.pathname] || "StudioSync"}
+                {pageTitles[location.pathname] || "Client Workspace"}
             </p>
 
             {/* User pill */}
