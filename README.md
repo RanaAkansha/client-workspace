@@ -2,7 +2,7 @@
 
 > A full-stack client collaboration platform that centralizes projects, deliverables, and communication between digital agencies and their clients.
 
-![Admin Dashboard](docs/images/admin.png)
+![Admin Dashboard](docs/images/image.png)
 
 ---
 
