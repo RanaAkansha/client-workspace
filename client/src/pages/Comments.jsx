@@ -139,36 +139,36 @@ function Comments() {
 
                 {/* Chat thread */}
                 {selectedProject && (
-                    <div className="bg-white border border-gray-200 rounded-xl flex flex-col overflow-hidden" style={{ minHeight: "420px" }}>
+                    <div className="bg-white border border-gray-200/80 rounded-2xl flex flex-col overflow-hidden shadow-sm" style={{ minHeight: "450px" }}>
 
                         {/* Thread header */}
-                        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                        <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-slate-50/50">
                             <div>
-                                <h2 className="text-base font-semibold text-gray-900">
+                                <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
                                     {projects.find((p) => String(p.id) === String(selectedProject))?.title || "Discussion"}
                                 </h2>
-                                <p className="text-xs text-gray-400 mt-0.5">
-                                    {comments.length} {comments.length === 1 ? "message" : "messages"}
+                                <p className="text-xs text-gray-400 mt-1 font-semibold">
+                                    {comments.length} {comments.length === 1 ? "message" : "messages"} in this thread
                                 </p>
                             </div>
                         </div>
 
                         {/* Message list */}
-                        <div className="flex-1 px-6 py-4 space-y-4 overflow-y-auto" style={{ maxHeight: "380px" }}>
+                        <div className="flex-1 px-6 py-5 space-y-6 overflow-y-auto" style={{ maxHeight: "400px" }}>
 
                             {commentsLoading && (
                                 <div className="flex items-center justify-center h-32">
-                                    <p className="text-sm text-gray-400">Loading messages...</p>
+                                    <p className="text-sm text-gray-400 animate-pulse">Loading messages...</p>
                                 </div>
                             )}
 
                             {!commentsLoading && comments.length === 0 && (
-                                <div className="flex flex-col items-center justify-center h-32">
-                                    <p className="text-sm text-gray-400">No messages yet.</p>
-                                    <p className="text-xs text-gray-300 mt-1">
+                                <div className="flex flex-col items-center justify-center h-36">
+                                    <p className="text-sm font-semibold text-gray-500">No messages yet.</p>
+                                    <p className="text-xs text-gray-400 mt-1 text-center max-w-xs">
                                         {user?.role === "admin"
-                                            ? "Start the conversation with your client."
-                                            : "Send your first message to the team."}
+                                            ? "Start the conversation with your client partner."
+                                            : "Send your first message to coordinate with the agency."}
                                     </p>
                                 </div>
                             )}
@@ -176,33 +176,42 @@ function Comments() {
                             {!commentsLoading && comments.map((comment) => {
                                 const mine = isMine(comment);
                                 const allowedDelete = canDelete(comment);
+
+                                // Extract initials
+                                const initials = comment.name
+                                    ?.split(" ")
+                                    .map((n) => n[0])
+                                    .join("")
+                                    .toUpperCase()
+                                    .substring(0, 2) || "?";
+
                                 return (
                                     <div
                                         key={comment.id}
-                                        className={`flex gap-3 ${mine ? "flex-row-reverse" : "flex-row"}`}
+                                        className={`flex gap-3.5 ${mine ? "flex-row-reverse" : "flex-row"}`}
                                     >
                                         {/* Avatar */}
                                         <div
-                                            className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 mt-1
+                                            className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 shadow-xs border
                                                 ${mine
-                                                    ? "bg-gray-900 text-white"
+                                                    ? "bg-indigo-600 text-white border-indigo-700"
                                                     : comment.user_role === "admin"
-                                                        ? "bg-gray-200 text-gray-700"
-                                                        : "bg-gray-100 text-gray-600"
+                                                        ? "bg-indigo-50 text-indigo-700 border-indigo-100"
+                                                        : "bg-slate-100 text-slate-700 border-slate-200"
                                                 }`}
                                         >
-                                            {comment.name?.charAt(0).toUpperCase()}
+                                            {initials}
                                         </div>
 
                                         {/* Bubble Container */}
-                                        <div className={`max-w-xs lg:max-w-md ${mine ? "items-end" : "items-start"} flex flex-col`}>
+                                        <div className={`max-w-xs sm:max-w-md md:max-w-lg ${mine ? "items-end" : "items-start"} flex flex-col`}>
                                             {/* Sender + role tag */}
-                                            <div className={`flex items-center gap-1.5 mb-1 ${mine ? "flex-row-reverse" : "flex-row"}`}>
-                                                <span className="text-xs font-medium text-gray-700">
+                                            <div className={`flex items-center gap-1.5 mb-1.5 ${mine ? "flex-row-reverse" : "flex-row"}`}>
+                                                <span className="text-xs font-bold text-gray-700">
                                                     {mine ? "You" : comment.name}
                                                 </span>
                                                 {comment.user_role === "admin" && (
-                                                    <span className="text-xs bg-gray-900 text-white px-1.5 py-0.5 rounded-full leading-none">
+                                                    <span className="text-[10px] font-bold bg-indigo-50 border border-indigo-100/60 text-indigo-700 px-1.5 py-0.5 rounded uppercase tracking-wider">
                                                         Agency
                                                     </span>
                                                 )}
@@ -211,10 +220,10 @@ function Comments() {
                                             {/* Message bubble */}
                                             <div className="group relative flex items-center gap-2">
                                                 <div
-                                                    className={`px-4 py-3 rounded-2xl text-sm leading-relaxed
+                                                    className={`px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-xs border
                                                         ${mine
-                                                            ? "bg-gray-900 text-white rounded-tr-sm"
-                                                            : "bg-gray-100 text-gray-800 rounded-tl-sm"
+                                                            ? "bg-indigo-600 text-white rounded-tr-none border-indigo-700"
+                                                            : "bg-slate-50 text-gray-800 rounded-tl-none border-slate-200/60"
                                                         }`}
                                                 >
                                                     {comment.message}
@@ -224,17 +233,17 @@ function Comments() {
                                                 {allowedDelete && (
                                                     <button
                                                         onClick={() => handleDeleteComment(comment.id)}
-                                                        className={`text-gray-400 hover:text-red-600 transition flex-shrink-0 p-1 rounded-full hover:bg-gray-50
+                                                        className={`text-gray-400 hover:text-red-650 transition flex-shrink-0 p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer
                                                             ${mine ? "order-first" : "order-last"}`}
                                                         title="Delete Comment"
                                                     >
-                                                        <Trash2 size={14} />
+                                                        <Trash2 size={13} />
                                                     </button>
                                                 )}
                                             </div>
 
                                             {/* Timestamp */}
-                                            <span className="text-xs text-gray-400 mt-1">
+                                            <span className="text-[10px] font-semibold text-gray-400 mt-1.5 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-100">
                                                 {formatDateTime(comment.created_at)}
                                             </span>
                                         </div>
@@ -246,7 +255,7 @@ function Comments() {
                         </div>
 
                         {/* Reply box */}
-                        <div className="px-6 py-4 border-t border-gray-200">
+                        <div className="px-6 py-4.5 border-t border-gray-150 bg-slate-50/20">
                             <form onSubmit={handleSubmit} className="flex gap-3 items-end">
                                 <textarea
                                     rows="2"
@@ -256,18 +265,18 @@ function Comments() {
                                     onKeyDown={(e) => {
                                         if ((e.metaKey || e.ctrlKey) && e.key === "Enter") handleSubmit(e);
                                     }}
-                                    className="flex-1 border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 resize-none"
+                                    className="flex-1 border border-gray-200 bg-white rounded-xl px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none"
                                 />
                                 <button
                                     type="submit"
                                     disabled={submitting || !message.trim()}
-                                    className="bg-black text-white px-5 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                                    className="bg-indigo-650 text-white px-5 py-3.5 rounded-xl text-sm font-semibold hover:bg-indigo-750 active:bg-indigo-850 shadow-sm transition disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 cursor-pointer"
                                 >
                                     {submitting ? "..." : "Send"}
                                 </button>
                             </form>
-                            <p className="text-xs text-gray-400 mt-1.5">
-                                Press <kbd className="bg-gray-100 px-1 py-0.5 rounded text-xs">Ctrl+Enter</kbd> to send
+                            <p className="text-[10px] text-gray-400 font-medium mt-2">
+                                Press <kbd className="bg-gray-100 px-1.5 py-0.5 rounded text-[10px] font-bold">Ctrl+Enter</kbd> to send instantly
                             </p>
                         </div>
 

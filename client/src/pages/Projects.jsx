@@ -104,12 +104,12 @@ function Projects() {
 
                 {/* Create form — admin only */}
                 {isAdmin && clients.length > 0 && (
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
-                        <h2 className="text-lg font-semibold mb-5">Create Project</h2>
+                    <div className="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-sm">
+                        <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider mb-5">Create Project</h2>
 
                         <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     Project Title <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -118,12 +118,12 @@ function Projects() {
                                     placeholder="e.g. Website Redesign"
                                     value={formData.title}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     Description
                                 </label>
                                 <textarea
@@ -132,20 +132,20 @@ function Projects() {
                                     rows="3"
                                     value={formData.description}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 resize-none"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none"
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                    <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                         Client <span className="text-red-500">*</span>
                                     </label>
                                     <select
                                         name="client_id"
                                         value={formData.client_id}
                                         onChange={handleChange}
-                                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white"
+                                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none bg-white transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
                                     >
                                         <option value="">Select client</option>
                                         {clients.map((client) => (
@@ -157,14 +157,14 @@ function Projects() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                    <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                         Status
                                     </label>
                                     <select
                                         name="status"
                                         value={formData.status}
                                         onChange={handleChange}
-                                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white"
+                                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none bg-white transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
                                     >
                                         <option value="Planning">Planning</option>
                                         <option value="Active">Active</option>
@@ -178,7 +178,7 @@ function Projects() {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                                    className="bg-indigo-650 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-750 transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                                 >
                                     {submitting ? "Creating..." : "Create Project"}
                                 </button>
@@ -188,16 +188,16 @@ function Projects() {
                 )}
 
                 {/* Projects table */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-200">
-                        <h2 className="text-lg font-semibold">
+                <div className="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="px-6 py-5 border-b border-gray-100 bg-slate-50/50">
+                        <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
                             {isAdmin ? "All Projects" : "Your Projects"}
                         </h2>
                     </div>
 
                     {loading ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">Loading projects...</p>
+                            <p className="text-sm text-gray-400 animate-pulse">Loading projects...</p>
                         </div>
                     ) : projects.length === 0 ? (
                         <div className="px-6 py-12 text-center">
@@ -209,51 +209,67 @@ function Projects() {
                             </p>
                         </div>
                     ) : (
-                        <table className="w-full">
-                            <thead>
-                                <tr className="text-left border-b border-gray-100">
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Project</th>
-                                    {isAdmin && (
-                                        <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Client</th>
-                                    )}
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Status</th>
-                                    {isAdmin && (
-                                        <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide text-right">Actions</th>
-                                    )}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {projects.map((project) => (
-                                    <tr key={project.id} className="border-t border-gray-100 hover:bg-gray-50 transition">
-                                        <td className="px-6 py-4">
-                                            <p className="text-sm font-medium text-gray-900">{project.title}</p>
-                                            {project.description && (
-                                                <p className="text-xs text-gray-400 mt-0.5">{project.description}</p>
-                                            )}
-                                        </td>
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="text-left border-b border-gray-100 bg-slate-50/20">
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Project</th>
                                         {isAdmin && (
-                                            <td className="px-6 py-4 text-sm text-gray-600">
-                                                {project.client_name || "—"}
-                                            </td>
+                                            <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Client</th>
                                         )}
-                                        <td className="px-6 py-4">
-                                            <StatusBadge status={project.status} />
-                                        </td>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
                                         {isAdmin && (
-                                            <td className="px-6 py-4 text-right">
-                                                <button
-                                                    onClick={() => handleDelete(project.id, project.title)}
-                                                    className="text-gray-400 hover:text-red-600 transition"
-                                                    title="Delete Project"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </td>
+                                            <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
                                         )}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {projects.map((project) => {
+                                        const initials = project.client_name
+                                            ?.split(" ")
+                                            .map((n) => n[0])
+                                            .join("")
+                                            .toUpperCase()
+                                            .substring(0, 2) || "?";
+
+                                        return (
+                                            <tr key={project.id} className="hover:bg-slate-50/50 transition duration-150">
+                                                <td className="px-6 py-4.5">
+                                                    <p className="text-sm font-semibold text-gray-900">{project.title}</p>
+                                                    {project.description && (
+                                                        <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed">{project.description}</p>
+                                                    )}
+                                                </td>
+                                                {isAdmin && (
+                                                    <td className="px-6 py-4.5 text-sm text-gray-600 font-semibold">
+                                                        <div className="flex items-center gap-2.5">
+                                                            <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100/50 text-indigo-700 flex items-center justify-center text-[10px] font-bold shadow-xs">
+                                                                {initials}
+                                                            </div>
+                                                            <span>{project.client_name || "—"}</span>
+                                                        </div>
+                                                    </td>
+                                                )}
+                                                <td className="px-6 py-4.5">
+                                                    <StatusBadge status={project.status} />
+                                                </td>
+                                                {isAdmin && (
+                                                    <td className="px-6 py-4.5 text-right">
+                                                        <button
+                                                            onClick={() => handleDelete(project.id, project.title)}
+                                                            className="text-gray-400 hover:text-red-650 p-1.5 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                                                            title="Delete Project"
+                                                        >
+                                                            <Trash2 size={15} />
+                                                        </button>
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     )}
                 </div>
 

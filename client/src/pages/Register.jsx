@@ -46,50 +46,67 @@ function Register() {
     };
 
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex bg-slate-50">
 
             {/* Left panel */}
-            <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gray-950 text-white p-14">
-                <div>
-                    <span className="text-xl font-semibold tracking-tight">Client Workspace</span>
+            <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-white p-16 relative overflow-hidden">
+                {/* Geometric Grid Background */}
+                <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
+                </div>
+                {/* Glow Spheres */}
+                <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                {/* Brand Header */}
+                <div className="relative z-10 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-bold text-white text-lg">
+                        C
+                    </div>
+                    <span className="text-xl font-bold tracking-tight text-white">Client Workspace</span>
                 </div>
 
-                <div>
-                    <h1 className="text-4xl font-semibold leading-snug mb-4">
-                        One place for<br />
-                        projects, files,<br />
-                        and feedback.
+                {/* Value prop */}
+                <div className="relative z-10 my-auto space-y-6">
+                    <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-100 to-purple-200">
+                        Join the workspace<br />
+                        and align on results.
                     </h1>
-                    <p className="text-gray-400 text-base leading-relaxed max-w-sm">
-                        Built for digital agencies and their clients.
-                        Replace the scattered emails, Drive links,
-                        and WhatsApp threads — for good.
+                    <p className="text-slate-300 text-base leading-relaxed max-w-md">
+                        Collaborate transparently, view project deliverables in real time, and share contextual revisions without the communication noise.
                     </p>
                 </div>
 
-                <div>
-                    <p className="text-gray-600 text-xs">
+                {/* Footer credit */}
+                <div className="relative z-10">
+                    <p className="text-slate-500 text-xs font-medium">
                         Designed for modern digital agencies.
                     </p>
                 </div>
             </div>
 
             {/* Right panel — register form */}
-            <div className="flex-1 flex items-center justify-center bg-white px-8">
+            <div className="flex-1 flex items-center justify-center bg-white px-6 sm:px-12">
 
                 <div className="w-full max-w-sm">
 
-                    <p className="lg:hidden text-xl font-semibold mb-8">Client Workspace</p>
+                    {/* Mobile brand (hidden on desktop) */}
+                    <div className="lg:hidden flex items-center gap-2 mb-8">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">
+                            C
+                        </div>
+                        <span className="text-lg font-bold tracking-tight text-gray-900">Client Workspace</span>
+                    </div>
 
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-1">
+                    <h2 className="text-3xl font-extrabold text-gray-900 mb-1.5 tracking-tight">
                         Create an account
                     </h2>
-                    <p className="text-sm text-gray-500 mb-8">
-                        Get started with your workspace.
+                    <p className="text-sm text-gray-500 mb-8 font-medium">
+                        Get started with your collaborative workspace.
                     </p>
 
                     {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-5">
+                        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-6">
                             {error}
                         </div>
                     )}
@@ -97,7 +114,7 @@ function Register() {
                     <form onSubmit={handleSubmit} className="space-y-4">
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                                 Full Name
                             </label>
                             <input
@@ -107,12 +124,12 @@ function Register() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                                 Email
                             </label>
                             <input
@@ -122,12 +139,12 @@ function Register() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                                 Password
                             </label>
                             <input
@@ -137,38 +154,38 @@ function Register() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                                 I am joining as
                             </label>
                             <select
                                 name="role"
                                 value={formData.role}
                                 onChange={handleChange}
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white"
+                                className="w-full border border-gray-200 bg-white rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
                             >
-                                <option value="client">Client</option>
-                                <option value="admin">Admin</option>
+                                <option value="client">Client Partner</option>
+                                <option value="admin">Agency Admin</option>
                             </select>
                         </div>
 
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full bg-black text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition disabled:opacity-40 disabled:cursor-not-allowed mt-2"
+                            className="w-full bg-indigo-600 text-white py-3 rounded-lg text-sm font-semibold hover:bg-indigo-700 active:bg-indigo-800 shadow-sm transition disabled:opacity-40 disabled:cursor-not-allowed mt-4 cursor-pointer"
                         >
                             {submitting ? "Creating account..." : "Create account"}
                         </button>
 
                     </form>
 
-                    <p className="text-sm text-gray-500 text-center mt-6">
+                    <p className="text-sm text-gray-500 text-center mt-8">
                         Already have an account?{" "}
-                        <Link to="/" className="text-gray-900 font-medium hover:underline">
+                        <Link to="/" className="text-indigo-600 font-semibold hover:underline">
                             Sign in
                         </Link>
                     </p>

@@ -104,19 +104,19 @@ function Deliverables() {
 
                 {/* Upload form — admin only */}
                 {isAdmin && (
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
-                        <h2 className="text-lg font-semibold mb-5">Upload Deliverable</h2>
+                    <div className="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-sm">
+                        <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider mb-5">Upload Deliverable</h2>
 
                         <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     Project <span className="text-red-500">*</span>
                                 </label>
                                 <select
                                     name="project_id"
                                     value={formData.project_id}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none bg-white transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
                                 >
                                     <option value="">Select project</option>
                                     {projects.map((project) => (
@@ -128,7 +128,7 @@ function Deliverables() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     Title <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -137,12 +137,12 @@ function Deliverables() {
                                     placeholder="e.g. Homepage Mockup v2"
                                     value={formData.title}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     Description
                                 </label>
                                 <textarea
@@ -151,12 +151,12 @@ function Deliverables() {
                                     placeholder="Optional notes about this file..."
                                     value={formData.description}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 resize-none"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                <label className="block text-xs font-semibold text-gray-650 uppercase tracking-wider mb-1.5">
                                     File URL <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -165,7 +165,7 @@ function Deliverables() {
                                     placeholder="https://drive.google.com/..."
                                     value={formData.file_url}
                                     onChange={handleChange}
-                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400"
+                                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 />
                             </div>
 
@@ -173,7 +173,7 @@ function Deliverables() {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                                    className="bg-indigo-650 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-750 transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                                 >
                                     {submitting ? "Uploading..." : "Upload Deliverable"}
                                 </button>
@@ -183,16 +183,16 @@ function Deliverables() {
                 )}
 
                 {/* Deliverables table */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-200">
-                        <h2 className="text-lg font-semibold">
+                <div className="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="px-6 py-5 border-b border-gray-100 bg-slate-50/50">
+                        <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
                             {isAdmin ? "All Deliverables" : "Your Files"}
                         </h2>
                     </div>
 
                     {loading ? (
                         <div className="px-6 py-12 text-center">
-                            <p className="text-sm text-gray-400">Loading deliverables...</p>
+                            <p className="text-sm text-gray-400 animate-pulse">Loading deliverables...</p>
                         </div>
                     ) : deliverables.length === 0 ? (
                         <div className="px-6 py-12 text-center">
@@ -204,53 +204,76 @@ function Deliverables() {
                             </p>
                         </div>
                     ) : (
-                        <table className="w-full">
-                            <thead>
-                                <tr className="text-left border-b border-gray-100">
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Title</th>
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Project</th>
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                        {isAdmin ? "Uploaded by" : "Shared by"}
-                                    </th>
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Date</th>
-                                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">File</th>
-                                    {isAdmin && (
-                                        <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide text-right">Actions</th>
-                                    )}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {deliverables.map((item) => (
-                                    <tr key={item.id} className="border-t border-gray-100 hover:bg-gray-50 transition">
-                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.title}</td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">{item.project_title}</td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">{item.uploaded_by_name}</td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">{formatDate(item.uploaded_at)}</td>
-                                        <td className="px-6 py-4">
-                                            <a
-                                                href={item.file_url}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="text-sm text-gray-900 underline underline-offset-2 hover:text-gray-600 transition"
-                                            >
-                                                Open
-                                            </a>
-                                        </td>
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="text-left border-b border-gray-100 bg-slate-50/20">
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Title</th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Project</th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            {isAdmin ? "Uploaded by" : "Shared by"}
+                                        </th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Date</th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">File</th>
                                         {isAdmin && (
-                                            <td className="px-6 py-4 text-right">
-                                                <button
-                                                    onClick={() => handleDelete(item.id, item.title)}
-                                                    className="text-gray-400 hover:text-red-600 transition"
-                                                    title="Delete File"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </td>
+                                            <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
                                         )}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {deliverables.map((item) => {
+                                        const initials = item.uploaded_by_name
+                                            ?.split(" ")
+                                            .map((n) => n[0])
+                                            .join("")
+                                            .toUpperCase()
+                                            .substring(0, 2) || "?";
+
+                                        return (
+                                            <tr key={item.id} className="hover:bg-slate-50/50 transition duration-150">
+                                                <td className="px-6 py-4.5">
+                                                    <p className="text-sm font-semibold text-gray-900">{item.title}</p>
+                                                    {item.description && (
+                                                        <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed">{item.description}</p>
+                                                    )}
+                                                </td>
+                                                <td className="px-6 py-4.5 text-xs font-semibold text-gray-500">{item.project_title}</td>
+                                                <td className="px-6 py-4.5 text-sm text-gray-650 font-semibold">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-6.5 h-6.5 rounded bg-indigo-50 border border-indigo-100/50 text-indigo-700 flex items-center justify-center text-[9px] font-extrabold shadow-xs">
+                                                            {initials}
+                                                        </div>
+                                                        <span>{item.uploaded_by_name}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4.5 text-xs font-semibold text-gray-400">{formatDate(item.uploaded_at)}</td>
+                                                <td className="px-6 py-4.5">
+                                                    <a
+                                                        href={item.file_url}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="text-xs font-bold text-indigo-650 bg-indigo-50 border border-indigo-100/60 hover:bg-indigo-100/60 px-3 py-1.5 rounded-lg transition"
+                                                    >
+                                                        Open
+                                                    </a>
+                                                </td>
+                                                {isAdmin && (
+                                                    <td className="px-6 py-4.5 text-right">
+                                                        <button
+                                                            onClick={() => handleDelete(item.id, item.title)}
+                                                            className="text-gray-400 hover:text-red-650 p-1.5 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                                                            title="Delete File"
+                                                        >
+                                                            <Trash2 size={15} />
+                                                        </button>
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     )}
                 </div>
 
