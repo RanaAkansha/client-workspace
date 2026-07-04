@@ -189,7 +189,7 @@ function Login() {
 
                             <h3 className="text-xs font-bold text-indigo-950 uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                                Demo Reviewer Accounts
+                                Workspace Reviewer Accounts
                             </h3>
 
                             <div className="space-y-3.5">

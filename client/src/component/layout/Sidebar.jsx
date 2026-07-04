@@ -28,7 +28,7 @@ function Sidebar() {
                 </div>
                 <div>
                     <p className="text-sm font-bold tracking-tight text-gray-900 leading-none">Client Workspace</p>
-                    <p className="text-[10px] text-gray-400 font-medium mt-1">Apex Creative Portal</p>
+                    <p className="text-[10px] text-gray-400 font-medium mt-1">Agency Collaboration Platform</p>
                 </div>
             </div>
 

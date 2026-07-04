@@ -67,15 +67,15 @@ function Dashboard() {
     // Build the visual stats cards config
     const stats = isAdmin
         ? [
-            { label: "Active Projects", value: dashboard.stats.projects, icon: FolderKanban, color: "text-indigo-650 bg-indigo-50 border-indigo-100/60", trend: "+12%" },
-            { label: "Client Partners", value: dashboard.stats.clients, icon: Users, color: "text-purple-650 bg-purple-50 border-purple-100/60", trend: "+8%" },
-            { label: "Total Deliverables", value: dashboard.stats.deliverables, icon: FileText, color: "text-pink-650 bg-pink-50 border-pink-100/60", trend: "+24%" },
-            { label: "Discussions logged", value: dashboard.stats.comments, icon: MessageSquare, color: "text-emerald-650 bg-emerald-50 border-emerald-100/60", trend: "+32%" },
+            { label: "Projects", value: dashboard.stats.projects, icon: FolderKanban, color: "text-indigo-650 bg-indigo-50 border-indigo-100/60", trend: "Active" },
+            { label: "Clients", value: dashboard.stats.clients, icon: Users, color: "text-purple-650 bg-purple-50 border-purple-100/60", trend: "Total" },
+            { label: "Deliverables", value: dashboard.stats.deliverables, icon: FileText, color: "text-pink-650 bg-pink-50 border-pink-100/60", trend: "Files" },
+            { label: "Comments", value: dashboard.stats.comments, icon: MessageSquare, color: "text-emerald-650 bg-emerald-50 border-emerald-100/60", trend: "Activity" },
           ]
         : [
-            { label: "Assigned Projects", value: dashboard.stats.projects, icon: FolderKanban, color: "text-indigo-650 bg-indigo-50 border-indigo-100/60", trend: "Active" },
-            { label: "Shared Files", value: dashboard.stats.deliverables, icon: FileText, color: "text-purple-650 bg-purple-50 border-purple-100/60", trend: "Updated" },
-            { label: "Your Comments", value: dashboard.stats.comments, icon: MessageSquare, color: "text-emerald-650 bg-emerald-50 border-emerald-100/60", trend: "Latest" },
+            { label: "Projects", value: dashboard.stats.projects, icon: FolderKanban, color: "text-indigo-650 bg-indigo-50 border-indigo-100/60", trend: "Active" },
+            { label: "Deliverables", value: dashboard.stats.deliverables, icon: FileText, color: "text-purple-650 bg-purple-50 border-purple-100/60", trend: "Files" },
+            { label: "Comments", value: dashboard.stats.comments, icon: MessageSquare, color: "text-emerald-650 bg-emerald-50 border-emerald-100/60", trend: "Activity" },
           ];
 
     return (
@@ -86,12 +86,10 @@ function Dashboard() {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                            Welcome back, {firstName}
+                            Workspace Overview
                         </h2>
                         <p className="text-sm font-medium text-gray-550 mt-1">
-                            {isAdmin
-                                ? "Workspace Overview — Apex Creative Agency"
-                                : "Workspace Overview — Apex Creative Agency"}
+                            Manage projects, deliverables, and client communication from a single workspace.
                         </p>
                     </div>
                 </div>

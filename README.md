@@ -1,72 +1,264 @@
 # Client Workspace
 
-A modern, light, role-aware client collaboration portal inspired by the workflow needs of small digital agencies. Replace scattered email chains, Google Drive links, and WhatsApp threads with a single unified dashboard for managing projects, client assets, and interactive feedback.
+> A full-stack client collaboration platform that centralizes projects, deliverables, and communication between digital agencies and their clients.
+
+![Admin Dashboard](docs/images/admin.png)
 
 ---
 
-## Key Features
+## Overview
 
-- **🔑 Role-Aware Access Control (Admin vs. Client)**:
-  - **Admins** can create client projects, upload deliverables/files, assign tasks, and monitor all clients.
-  - **Clients** get a focused, read-only view of their specific projects, shared files, and direct feedback channels without administrative clutter.
-- **💬 Real-Time Discussion Threads**: A Linear-style chat interface inside projects allowing clients to request revisions and admins to reply in real-time, styled with clear sender roles and custom avatars.
-- **📂 Asset Deliverables Manager**: Central repository for tracking all design mockups, booking widget configurations, and asset links with direct source access.
-- **🎨 Premium Minimalist UI**: Built using custom Tailwind CSS variables inspired by modern SaaS applications (Notion, Linear, Vercel). No heavy AI-style gradients or glassmorphism, just clean borders, sharp typography, and smooth transitions.
+Managing client projects across email, messaging apps, cloud storage, and spreadsheets often results in fragmented communication, version conflicts, and limited project visibility.
+
+**Client Workspace** brings the entire collaboration workflow into one centralized platform where agencies can manage projects, share deliverables, collect client feedback, and provide role-based access through a secure dashboard.
+
+The application demonstrates a production-style full-stack architecture with authentication, authorization, REST APIs, and PostgreSQL.
+
+---
+
+## Features
+
+### 🔐 Role-Based Authentication
+
+- JWT-based authentication
+- Protected routes
+- Separate Admin and Client workspaces
+- Secure session management
+
+### 📁 Project Management
+
+- Create and manage projects
+- Assign projects to clients
+- Track project status
+- Centralized project dashboard
+
+### 📄 Deliverable Management
+
+- Upload and organize project deliverables
+- Associate files with specific projects
+- Track upload history
+- Easy file access for clients
+
+### 💬 Client Collaboration
+
+- Threaded project discussions
+- Client feedback workflow
+- Admin replies
+- Activity history
+
+### 📊 Dashboard
+
+- Workspace overview
+- Project statistics
+- Client statistics
+- Recent deliverables
+- Recent activity timeline
+
+---
+
+## Screenshots
+
+### Admin Dashboard
+
+![Admin Dashboard](docs/images/admin.png)
+
+### Client Workspace
+
+![Client Workspace](docs/images/client.png)
 
 ---
 
 ## Tech Stack
 
-- **Frontend**: React 19, Vite, Tailwind CSS v4, React Router v7, Axios, Lucide Icons
-- **Backend**: Node.js, Express, JSON Web Tokens (JWT) for secure stateful sessions
-- **Database**: PostgreSQL (Hosted on Neon serverless postgres)
+### Frontend
+
+- React 19
+- Vite
+- React Router
+- Tailwind CSS v4
+- Axios
+- Lucide React
+
+### Backend
+
+- Node.js
+- Express.js
+- JWT Authentication
+
+### Database
+
+- PostgreSQL
+- Neon Serverless PostgreSQL
+
+---
+
+## Architecture
+
+```
+React Client
+       │
+       ▼
+Express REST API
+       │
+ JWT Authentication
+       │
+       ▼
+ PostgreSQL Database
+```
+
+---
+
+## Project Structure
+
+```text
+client-workspace
+│
+├── client
+│   ├── public
+│   ├── src
+│   │   ├── assets
+│   │   ├── component
+│   │   ├── context
+│   │   ├── pages
+│   │   ├── routes
+│   │   ├── services
+│   │   ├── styles
+│   │   └── utils
+│   └── package.json
+│
+├── server
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── seed.js
+│   └── package.json
+│
+├── docs
+│   └── images
+│       ├── admin.png
+│       └── client.png
+│
+└── README.md
+```
 
 ---
 
 ## Getting Started
 
-### 1. Database Initialization
-Ensure you have your environment variables set in `server/.env`.
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/client-workspace.git
+
+cd client-workspace
+```
+
+---
+
+### Backend
+
 ```bash
 cd server
+
 npm install
+
+npm run seed
+
+npm run dev
+```
+
+The backend runs on:
+
+```
+http://localhost:5000
+```
+
+---
+
+### Frontend
+
+```bash
+cd client
+
+npm install
+
+npm run dev
+```
+
+The frontend runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+## Environment Variables
+
+### Client
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+### Server
+
+```env
+DATABASE_URL=your_postgresql_connection
+
+JWT_SECRET=your_secret_key
+```
+
+---
+
+## Demo Credentials
+
+Run
+
+```bash
 npm run seed
 ```
-> The seeder automatically drops old tables, runs migrations (if needed), and populates realistic agency workspace data (projects, deliverables, comments) to showcase the agency workflow.
 
-### 2. Run Backend Dev Server
-```bash
-npm run dev
-```
-The server will boot on `http://localhost:5000`.
+to generate the demo Admin and Client accounts.
 
-### 3. Run Frontend Client
-```bash
-cd ../client
-npm install
-npm run dev
+The credentials are available in:
+
 ```
-Vite will start the client interface on `http://localhost:5173`.
+server/seed.js
+```
 
 ---
 
-## 🔐 Seeded Workspace Credentials
+## Future Improvements
 
-Run `npm run seed` to generate default Admin and Client accounts — check `server/seed.js` for credentials.
+- Real-time messaging using WebSockets
+- File uploads with cloud storage
+- Email notifications
+- Activity timeline
+- Team workspaces
+- Calendar integration
+- Project search and filtering
+- Notification center
 
 ---
 
-## 🚀 Production Deployment
+## What I Learned
 
-### Frontend (e.g. Vercel / Netlify)
-Set the environment variable on build:
-```env
-VITE_API_URL=https://your-deployed-backend.com/api
-```
+While building this project, I strengthened my understanding of:
 
-### Backend (e.g. Render / Heroku)
-Set the following variables:
-```env
-DATABASE_URL=your_postgresql_uri
-JWT_SECRET=your_jwt_secret
-```
+- JWT Authentication
+- Role-Based Authorization
+- REST API Design
+- PostgreSQL Database Design
+- React Context API
+- Full-Stack Application Architecture
+- Client-Server Communication
+- Protected Routes
+- State Management
+
+---
+
+## License
+
+This project is intended for educational and portfolio purposes.
