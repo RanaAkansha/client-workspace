@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Layers, MessageSquare, ShieldCheck } from "lucide-react";
 
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
@@ -46,203 +47,178 @@ function Login() {
     };
 
     return (
-        <div className="min-h-screen flex bg-slate-50">
+        <div className="min-h-screen flex flex-col lg:flex-row bg-white">
 
             {/* Left panel — product context */}
-            <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-white p-16 relative overflow-hidden">
-                {/* Geometric Grid Background */}
-                <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-                </div>
-                {/* Glow Spheres */}
-                <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+            <div className="lg:w-[35%] w-full bg-gray-50 border-b lg:border-b-0 lg:border-r border-gray-200 p-8 lg:p-12 flex flex-col justify-between">
                 {/* Brand Header */}
-                <div className="relative z-10 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-bold text-white text-lg">
-                        C
-                    </div>
-                    <span className="text-xl font-bold tracking-tight text-white">Client Workspace</span>
+                <div className="flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-indigo-600" />
+                    <span className="font-semibold text-gray-900 tracking-tight">Client Workspace</span>
                 </div>
 
-                {/* Feature preview visualizer */}
-                <div className="relative z-10 my-auto space-y-12">
-                    <div className="space-y-4">
-                        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-100 to-purple-200">
-                            A centralized hub for client collaboration.
+                {/* Minimal Benefits */}
+                <div className="my-12 lg:my-auto space-y-8">
+                    <div>
+                        <h1 className="text-lg font-semibold text-gray-950 tracking-tight">
+                            One portal for your deliverables.
                         </h1>
-                        <p className="text-slate-300 text-base leading-relaxed max-w-md">
-                            Ditch the scattered email threads, messaging groups, and lost links. One workspace for your projects, files, and direct feedback.
+                        <p className="text-sm text-gray-500 mt-1">
+                            A clean and centralized space to share project updates, assets, and revisions.
                         </p>
                     </div>
 
-                    {/* Live visualization of portal cards */}
-                    <div className="space-y-4 max-w-sm">
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm shadow-xl flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold">
-                                PJ
+                    <div className="space-y-6">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-0.5 p-1 bg-white border border-gray-200 rounded-md text-gray-600 shadow-xs">
+                                <Layers className="w-4 h-4" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">Corporate Website Redesign</p>
-                                <p className="text-xs text-indigo-300 font-medium">Apex Creative Agency — Active</p>
+                                <h2 className="text-sm font-medium text-gray-900">Project Deliverables</h2>
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                    View designs, documents, and updates as they are prepared.
+                                </p>
                             </div>
                         </div>
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm shadow-xl flex items-center gap-4 translate-x-4">
-                            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">
-                                DL
+
+                        <div className="flex items-start gap-3">
+                            <div className="mt-0.5 p-1 bg-white border border-gray-200 rounded-md text-gray-600 shadow-xs">
+                                <MessageSquare className="w-4 h-4" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">Homepage Mockup.fig</p>
-                                <p className="text-xs text-purple-300 font-medium">Delivered to Sarah Jenkins</p>
+                                <h2 className="text-sm font-medium text-gray-900">Direct Revisions</h2>
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                    Provide clear feedback and comments directly on each deliverable.
+                                </p>
                             </div>
                         </div>
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm shadow-xl flex items-center gap-4 translate-x-8">
-                            <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">
-                                CM
+
+                        <div className="flex items-start gap-3">
+                            <div className="mt-0.5 p-1 bg-white border border-gray-200 rounded-md text-gray-600 shadow-xs">
+                                <ShieldCheck className="w-4 h-4" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">"Check out states look great!"</p>
-                                <p className="text-xs text-emerald-300 font-medium">New Client Message</p>
+                                <h2 className="text-sm font-medium text-gray-900">Secure Access</h2>
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                    Your private workspaces are secure, scoped, and password-protected.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Footer credit */}
-                <div className="relative z-10">
-                    <p className="text-slate-500 text-xs font-medium">
-                        Designed for modern digital agencies.
-                    </p>
+                <div className="text-xs text-gray-400 font-normal">
+                    © {new Date().getFullYear()} Client Workspace.
                 </div>
-
             </div>
 
             {/* Right panel — login form */}
-            <div className="flex-1 flex items-center justify-center bg-white px-6 sm:px-12">
-
+            <div className="flex-1 flex items-center justify-center px-6 py-12 lg:py-16 bg-white">
                 <div className="w-full max-w-sm">
-
-                    {/* Mobile brand (hidden on desktop) */}
-                    <div className="lg:hidden flex items-center gap-2 mb-8">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">
-                            C
-                        </div>
-                        <span className="text-lg font-bold tracking-tight text-gray-900">Client Workspace</span>
+                    {/* Header */}
+                    <div className="mb-6">
+                        <h2 className="text-xl font-semibold text-gray-900 tracking-tight">Sign in to your account</h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Enter your email and password to access your dashboard.
+                        </p>
                     </div>
-
-                    <h2 className="text-3xl font-extrabold text-gray-900 mb-1.5 tracking-tight">
-                        Welcome back
-                    </h2>
-                    <p className="text-sm text-gray-500 mb-8 font-medium">
-                        Sign in to access your dashboard.
-                    </p>
 
                     {/* Inline error */}
                     {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-6">
+                        <div className="bg-red-50 border border-red-200 text-red-700 text-xs px-4 py-3 rounded-md mb-5 font-medium">
                             {error}
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-
                         <div>
-                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                                Email
+                            <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1.5">
+                                Email Address
                             </label>
                             <input
+                                id="email"
                                 type="email"
                                 name="email"
                                 placeholder="you@agency.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 placeholder-gray-400 bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 outline-none transition duration-150"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                                Password
-                            </label>
+                            <div className="flex items-center justify-between mb-1.5">
+                                <label htmlFor="password" className="block text-xs font-medium text-gray-700">
+                                    Password
+                                </label>
+                            </div>
                             <input
+                                id="password"
                                 type="password"
                                 name="password"
                                 placeholder="••••••••"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 placeholder-gray-400 bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 outline-none transition duration-150"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full bg-indigo-600 text-white py-3 rounded-lg text-sm font-semibold hover:bg-indigo-750 active:bg-indigo-850 shadow-sm transition disabled:opacity-40 disabled:cursor-not-allowed mt-4 cursor-pointer"
+                            className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-850 text-white py-2 px-4 rounded-md text-sm font-medium transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-xs mt-2"
                         >
                             {submitting ? "Signing in..." : "Sign in"}
                         </button>
 
-                        <div className="mt-8 border border-indigo-100 rounded-xl p-4 bg-indigo-50/40">
-
-                            <h3 className="text-xs font-bold text-indigo-950 uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                        {/* Reviewer Accounts Container */}
+                        <div className="mt-8 border border-gray-200 rounded-md p-4 bg-white shadow-2xs">
+                            <h3 className="text-xs font-semibold text-gray-800 uppercase tracking-wider mb-3">
                                 Workspace Reviewer Accounts
                             </h3>
 
-                            <div className="space-y-3.5">
-
-                                <div className="flex items-center justify-between">
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between text-sm">
                                     <div>
-                                        <p className="text-xs font-bold text-gray-800">Agency Admin</p>
-                                        <p className="text-[11px] text-gray-500">
-                                            akansha@agency.com
-                                        </p>
+                                        <p className="font-medium text-gray-900">Agency Admin</p>
+                                        <p className="text-xs text-gray-500">akansha@agency.com</p>
                                     </div>
-
                                     <button
                                         type="button"
                                         onClick={fillAdmin}
-                                        className="text-xs px-2.5 py-1.5 border border-indigo-200/60 rounded-md bg-white hover:bg-indigo-50 text-indigo-650 font-medium transition cursor-pointer"
+                                        className="text-xs font-medium text-indigo-600 hover:text-indigo-500 border border-gray-200 rounded px-2.5 py-1 hover:bg-gray-50 transition cursor-pointer"
                                     >
                                         Use
                                     </button>
                                 </div>
 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between text-sm pt-3 border-t border-gray-100">
                                     <div>
-                                        <p className="text-xs font-bold text-gray-800">Client Partner</p>
-                                        <p className="text-[11px] text-gray-500">
-                                            sarah@novasmarthome.com
-                                        </p>
+                                        <p className="font-medium text-gray-900">Client Partner</p>
+                                        <p className="text-xs text-gray-500">sarah@novasmarthome.com</p>
                                     </div>
-
                                     <button
                                         type="button"
                                         onClick={fillClient}
-                                        className="text-xs px-2.5 py-1.5 border border-indigo-200/60 rounded-md bg-white hover:bg-indigo-50 text-indigo-650 font-medium transition cursor-pointer"
+                                        className="text-xs font-medium text-indigo-600 hover:text-indigo-500 border border-gray-200 rounded px-2.5 py-1 hover:bg-gray-50 transition cursor-pointer"
                                     >
                                         Use
                                     </button>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </form>
 
-                    <p className="text-sm text-gray-500 text-center mt-8">
+                    <p className="text-xs text-gray-500 text-center mt-6">
                         Don't have an account?{" "}
-                        <Link to="/register" className="text-indigo-650 font-semibold hover:underline">
+                        <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                             Create one
                         </Link>
                     </p>
-
                 </div>
-
             </div>
 
         </div>
