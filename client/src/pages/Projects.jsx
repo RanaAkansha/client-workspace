@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../component/layout/Layout";
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
 import { StatusBadge, ErrorBanner } from "../component/shared";
-import { Trash2 } from "lucide-react";
+import { Trash2, ArrowRight, Circle } from "lucide-react";
 
 function Projects() {
     const { user } = useAuth();
     const isAdmin = user?.role === "admin";
+    const navigate = useNavigate();
 
     const [projects, setProjects] = useState([]);
     const [clients, setClients] = useState([]);
@@ -74,7 +76,8 @@ function Projects() {
         }
     };
 
-    const handleDelete = async (id, title) => {
+    const handleDelete = async (e, id, title) => {
+        e.stopPropagation();
         if (!window.confirm(`Are you sure you want to delete "${title}"? This will delete all comments and deliverables linked to it.`)) {
             return;
         }
@@ -84,6 +87,19 @@ function Projects() {
         } catch (err) {
             setError(err.response?.data?.message || "Failed to delete project.");
         }
+    };
+
+    const getAttentionIndicator = (project) => {
+        const count = Number(project.pending_review_count || 0);
+        if (count > 0) {
+            return (
+                <span className="flex items-center gap-1 text-[10px] font-semibold text-amber-600 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded">
+                    <Circle size={6} className="fill-amber-500 text-amber-500" />
+                    {count} pending review
+                </span>
+            );
+        }
+        return null;
     };
 
     return (
@@ -218,6 +234,7 @@ function Projects() {
                                             <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Client</th>
                                         )}
                                         <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Review</th>
                                         {isAdmin && (
                                             <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
                                         )}
@@ -233,17 +250,24 @@ function Projects() {
                                             .substring(0, 2) || "?";
 
                                         return (
-                                            <tr key={project.id} className="hover:bg-slate-50/50 transition duration-150">
+                                            <tr
+                                                key={project.id}
+                                                onClick={() => navigate(`/projects/${project.id}`)}
+                                                className="hover:bg-slate-50/50 transition duration-150 cursor-pointer group"
+                                            >
                                                 <td className="px-6 py-4.5">
-                                                    <p className="text-sm font-semibold text-gray-900">{project.title}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition">{project.title}</p>
+                                                        <ArrowRight size={12} className="text-gray-300 group-hover:text-blue-400 transition opacity-0 group-hover:opacity-100" />
+                                                    </div>
                                                     {project.description && (
-                                                        <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed">{project.description}</p>
+                                                        <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed truncate">{project.description}</p>
                                                     )}
                                                 </td>
                                                 {isAdmin && (
                                                     <td className="px-6 py-4.5 text-sm text-gray-600 font-semibold">
                                                         <div className="flex items-center gap-2.5">
-                                                            <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100/50 text-indigo-700 flex items-center justify-center text-[10px] font-bold shadow-xs">
+                                                            <div className="w-7 h-7 rounded-lg bg-gray-100 border border-gray-200 text-gray-600 flex items-center justify-center text-[10px] font-bold">
                                                                 {initials}
                                                             </div>
                                                             <span>{project.client_name || "—"}</span>
@@ -253,10 +277,20 @@ function Projects() {
                                                 <td className="px-6 py-4.5">
                                                     <StatusBadge status={project.status} />
                                                 </td>
+                                                <td className="px-6 py-4.5">
+                                                    {project.latest_deliverable_status ? (
+                                                        <div className="flex flex-col gap-1">
+                                                            <StatusBadge status={project.latest_deliverable_status} type="deliverable" />
+                                                            {getAttentionIndicator(project)}
+                                                        </div>
+                                                    ) : (
+                                                        <span className="text-xs text-gray-400 font-medium">—</span>
+                                                    )}
+                                                </td>
                                                 {isAdmin && (
                                                     <td className="px-6 py-4.5 text-right">
                                                         <button
-                                                            onClick={() => handleDelete(project.id, project.title)}
+                                                            onClick={(e) => handleDelete(e, project.id, project.title)}
                                                             className="text-gray-400 hover:text-red-650 p-1.5 hover:bg-red-50 rounded-lg transition cursor-pointer"
                                                             title="Delete Project"
                                                         >

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../component/layout/Layout";
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
-import { ErrorBanner } from "../component/shared";
+import { StatusBadge, ErrorBanner } from "../component/shared";
 import { formatDate } from "../utils/formatDate";
 import { Trash2 } from "lucide-react";
 
 function Deliverables() {
     const { user } = useAuth();
     const isAdmin = user?.role === "admin";
+    const navigate = useNavigate();
 
     const [deliverables, setDeliverables] = useState([]);
     const [projects, setProjects] = useState([]);
@@ -74,7 +76,8 @@ function Deliverables() {
         }
     };
 
-    const handleDelete = async (id, title) => {
+    const handleDelete = async (e, id, title) => {
+        e.stopPropagation();
         if (!window.confirm(`Are you sure you want to delete the file "${title}"?`)) {
             return;
         }
@@ -210,9 +213,8 @@ function Deliverables() {
                                     <tr className="text-left border-b border-gray-100 bg-slate-50/20">
                                         <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Title</th>
                                         <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Project</th>
-                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                                            {isAdmin ? "Uploaded by" : "Shared by"}
-                                        </th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Version</th>
+                                        <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
                                         <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">Date</th>
                                         <th className="px-6 py-3.5 text-xs font-bold text-gray-400 uppercase tracking-wider">File</th>
                                         {isAdmin && (
@@ -221,56 +223,52 @@ function Deliverables() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
-                                    {deliverables.map((item) => {
-                                        const initials = item.uploaded_by_name
-                                            ?.split(" ")
-                                            .map((n) => n[0])
-                                            .join("")
-                                            .toUpperCase()
-                                            .substring(0, 2) || "?";
-
-                                        return (
-                                            <tr key={item.id} className="hover:bg-slate-50/50 transition duration-150">
-                                                <td className="px-6 py-4.5">
-                                                    <p className="text-sm font-semibold text-gray-900">{item.title}</p>
-                                                    {item.description && (
-                                                        <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed">{item.description}</p>
-                                                    )}
-                                                </td>
-                                                <td className="px-6 py-4.5 text-xs font-semibold text-gray-500">{item.project_title}</td>
-                                                <td className="px-6 py-4.5 text-sm text-gray-650 font-semibold">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-6.5 h-6.5 rounded bg-indigo-50 border border-indigo-100/50 text-indigo-700 flex items-center justify-center text-[9px] font-extrabold shadow-xs">
-                                                            {initials}
-                                                        </div>
-                                                        <span>{item.uploaded_by_name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4.5 text-xs font-semibold text-gray-400">{formatDate(item.uploaded_at)}</td>
-                                                <td className="px-6 py-4.5">
-                                                    <a
-                                                        href={item.file_url}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="text-xs font-bold text-indigo-650 bg-indigo-50 border border-indigo-100/60 hover:bg-indigo-100/60 px-3 py-1.5 rounded-lg transition"
-                                                    >
-                                                        Open
-                                                    </a>
-                                                </td>
-                                                {isAdmin && (
-                                                    <td className="px-6 py-4.5 text-right">
-                                                        <button
-                                                            onClick={() => handleDelete(item.id, item.title)}
-                                                            className="text-gray-400 hover:text-red-650 p-1.5 hover:bg-red-50 rounded-lg transition cursor-pointer"
-                                                            title="Delete File"
-                                                        >
-                                                            <Trash2 size={15} />
-                                                        </button>
-                                                    </td>
+                                    {deliverables.map((item) => (
+                                        <tr
+                                            key={item.id}
+                                            onClick={() => navigate(`/projects/${item.project_id}`)}
+                                            className="hover:bg-slate-50/50 transition duration-150 cursor-pointer"
+                                        >
+                                            <td className="px-6 py-4.5">
+                                                <p className="text-sm font-semibold text-gray-900">{item.title}</p>
+                                                {item.description && (
+                                                    <p className="text-xs text-gray-450 mt-1 font-medium max-w-md leading-relaxed truncate">{item.description}</p>
                                                 )}
-                                            </tr>
-                                        );
-                                    })}
+                                            </td>
+                                            <td className="px-6 py-4.5 text-xs font-semibold text-gray-500">{item.project_title}</td>
+                                            <td className="px-6 py-4.5">
+                                                <span className="text-xs font-semibold text-gray-500 bg-gray-50 border border-gray-200 px-2 py-0.5 rounded">
+                                                    v{item.version}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4.5">
+                                                <StatusBadge status={item.status} type="deliverable" />
+                                            </td>
+                                            <td className="px-6 py-4.5 text-xs font-semibold text-gray-400">{formatDate(item.uploaded_at)}</td>
+                                            <td className="px-6 py-4.5">
+                                                <a
+                                                    href={item.file_url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="text-xs font-bold text-indigo-650 bg-indigo-50 border border-indigo-100/60 hover:bg-indigo-100/60 px-3 py-1.5 rounded-lg transition"
+                                                >
+                                                    Open
+                                                </a>
+                                            </td>
+                                            {isAdmin && (
+                                                <td className="px-6 py-4.5 text-right">
+                                                    <button
+                                                        onClick={(e) => handleDelete(e, item.id, item.title)}
+                                                        className="text-gray-400 hover:text-red-650 p-1.5 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                                                        title="Delete File"
+                                                    >
+                                                        <Trash2 size={15} />
+                                                    </button>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

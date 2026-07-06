@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import Deliverables from "./pages/Deliverables";
 import Register from "./pages/Register";
 import Comments from "./pages/Comments";
@@ -29,6 +30,15 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <Projects />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/projects/:id"
+                element={
+                    <ProtectedRoute>
+                        <ProjectDetail />
                     </ProtectedRoute>
                 }
             />

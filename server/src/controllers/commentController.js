@@ -41,6 +41,18 @@ const addComment = async (req, res) => {
       [project_id, userId, message]
     );
 
+    // Log activity
+    const userRes = await pool.query("SELECT name FROM users WHERE id = $1", [userId]);
+    const userName = userRes.rows[0]?.name || "Unknown";
+    await pool.query(
+      `INSERT INTO activities (project_id, user_id, type, message)
+       VALUES ($1, $2, $3, $4)`,
+      [project_id, userId, "comment_added", `${userName} posted a comment`]
+    );
+
+    // Update project updated_at
+    await pool.query("UPDATE projects SET updated_at = NOW() WHERE id = $1", [project_id]);
+
     res.status(201).json({
       message: "Comment added successfully.",
       comment: result.rows[0],

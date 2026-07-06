@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../component/layout/Layout";
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
 import { ErrorBanner } from "../component/shared";
 import { formatDateTime } from "../utils/formatDate";
-import { Trash2 } from "lucide-react";
+import { Trash2, ExternalLink } from "lucide-react";
 
 function Comments() {
     const { user } = useAuth();
@@ -114,9 +115,20 @@ function Comments() {
 
                 {/* Project selector */}
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Select Project
-                    </label>
+                    <div className="flex items-center justify-between">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Select Project
+                        </label>
+                        {selectedProject && (
+                            <Link
+                                to={`/projects/${selectedProject}`}
+                                className="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-blue-600 transition"
+                            >
+                                <ExternalLink size={12} />
+                                View Project
+                            </Link>
+                        )}
+                    </div>
                     <select
                         value={selectedProject}
                         onChange={(e) => {
@@ -126,7 +138,7 @@ function Comments() {
                                 setComments([]);
                             }
                         }}
-                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white"
+                        className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-gray-400 bg-white mt-2"
                     >
                         <option value="">Choose a project to view its thread...</option>
                         {projects.map((project) => (

@@ -6,6 +6,7 @@ const projectRoutes = require("./routes/projectRoutes");
 const deliverableRoutes = require("./routes/deliverableRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const activityRoutes = require("./routes/activityRoutes");
 
 
 const app = express();
@@ -32,5 +33,6 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/deliverables", deliverableRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/activities", activityRoutes);
 
 module.exports = app;

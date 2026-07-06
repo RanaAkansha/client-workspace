@@ -15,11 +15,18 @@ function Navbar() {
     // Get first letter for avatar
     const initial = user?.name?.charAt(0).toUpperCase() || "?";
 
+    // Determine page title — support dynamic /projects/:id routes
+    let pageTitle = pageTitles[location.pathname];
+    if (!pageTitle && location.pathname.startsWith("/projects/")) {
+        pageTitle = "Project";
+    }
+    pageTitle = pageTitle || "Client Workspace";
+
     return (
         <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
 
             <p className="text-base font-semibold text-gray-900">
-                {pageTitles[location.pathname] || "Client Workspace"}
+                {pageTitle}
             </p>
 
             {/* User pill */}

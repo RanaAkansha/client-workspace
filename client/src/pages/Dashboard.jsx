@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../component/layout/Layout";
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
 import { StatusBadge, ErrorBanner } from "../component/shared";
 import { formatDate } from "../utils/formatDate";
-import { FolderKanban, Users, FileText, MessageSquare } from "lucide-react";
+import { FolderKanban, Users, FileText, MessageSquare, ArrowRight } from "lucide-react";
 
 function Dashboard() {
     const { user } = useAuth();
     const isAdmin = user?.role === "admin";
+    const navigate = useNavigate();
     const [dashboard, setDashboard] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -157,8 +159,17 @@ function Dashboard() {
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
                                         {dashboard.recentProjects.map((project) => (
-                                            <tr key={project.id} className="hover:bg-slate-50/50 transition duration-150">
-                                                <td className="px-6 py-4 text-sm font-semibold text-gray-900">{project.title}</td>
+                                            <tr
+                                                key={project.id}
+                                                onClick={() => navigate(`/projects/${project.id}`)}
+                                                className="hover:bg-slate-50/50 transition duration-150 cursor-pointer group"
+                                            >
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition">{project.title}</span>
+                                                        <ArrowRight size={12} className="text-gray-300 group-hover:text-blue-400 transition opacity-0 group-hover:opacity-100" />
+                                                    </div>
+                                                </td>
                                                 <td className="px-6 py-4 text-sm text-gray-600 font-medium">{project.client_name}</td>
                                                 <td className="px-6 py-4">
                                                     <StatusBadge status={project.status} />
